@@ -1,3 +1,5 @@
+import java.nio.ByteBuffer
+
 /**
  * User: zhaoyao
  * Date: 3/17/15
@@ -14,6 +16,8 @@ package object sbencoding {
 
   implicit def pimpAny[T](any: T) = new PimpedAny(any)
   implicit def pimpString(string: String) = new PimpedString(string)
+  implicit def pimpBytes(bytes: Array[Byte]) = new PimpedByteArray(bytes)
+  implicit def pimpBytes(bytes: ByteBuffer) = new PimpedByteBuffer(bytes)
 }
 
 package sbencoding {
