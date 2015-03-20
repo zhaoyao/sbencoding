@@ -23,7 +23,7 @@ class CollectionFormatsSpec extends Specification with DefaultBencodingProtocol 
 
   "The arrayFormat" should {
     val array = Array(1, 2, 3)
-    val b =  BcList(BcInt(1), BcInt(2), BcInt(3))
+    val b = BcList(BcInt(1), BcInt(2), BcInt(3))
     "convert an Array[Int] to a BcList of BcInts" in {
       array.toBencoding mustEqual b
     }
@@ -34,7 +34,7 @@ class CollectionFormatsSpec extends Specification with DefaultBencodingProtocol 
 
   "The mapFormat" should {
     val map = Map("a" -> 1, "b" -> 2, "c" -> 3)
-    val b =  BcDict("a" -> BcInt(1), "b" -> BcInt(2), "c" -> BcInt(3))
+    val b = BcDict("a" -> BcInt(1), "b" -> BcInt(2), "c" -> BcInt(3))
     "convert a Map[String, Long] to a BcDict" in {
       map.toBencoding mustEqual b
     }
@@ -48,7 +48,7 @@ class CollectionFormatsSpec extends Specification with DefaultBencodingProtocol 
 
   "The immutableSetFormat" should {
     val set = Set(1, 2, 3)
-    val b =  BcList(BcInt(1), BcInt(2), BcInt(3))
+    val b = BcList(BcInt(1), BcInt(2), BcInt(3))
     "convert a Set[Int] to a BcList of BcInts" in {
       set.toBencoding mustEqual b
     }
@@ -59,7 +59,7 @@ class CollectionFormatsSpec extends Specification with DefaultBencodingProtocol 
 
   "The indexedSeqFormat" should {
     val seq = collection.IndexedSeq(1, 2, 3)
-    val b =  BcList(BcInt(1), BcInt(2), BcInt(3))
+    val b = BcList(BcInt(1), BcInt(2), BcInt(3))
     "convert a Set[Int] to a BcList of BcInts" in {
       seq.toBencoding mustEqual b
     }

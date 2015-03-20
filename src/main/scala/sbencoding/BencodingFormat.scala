@@ -20,7 +20,7 @@ package sbencoding
 import annotation.implicitNotFound
 
 /**
-  * Provides the Bencoding deserialization for type T.
+ * Provides the Bencoding deserialization for type T.
  */
 @implicitNotFound(msg = "Cannot find BencodingReader or BencodingFormat type class for ${T}")
 trait BencodingReader[T] {
@@ -34,7 +34,7 @@ object BencodingReader {
 }
 
 /**
-  * Provides the Bencoding serialization for type T.
+ * Provides the Bencoding serialization for type T.
  */
 @implicitNotFound(msg = "Cannot find BencodingWriter or BencodingFormat type class for ${T}")
 trait BencodingWriter[T] {
@@ -48,7 +48,7 @@ object BencodingWriter {
 }
 
 /**
-  * Provides the Bencoding deserialization and serialization for type T.
+ * Provides the Bencoding deserialization and serialization for type T.
  */
 trait BencodingFormat[T] extends BencodingReader[T] with BencodingWriter[T]
 

@@ -1,7 +1,7 @@
 package sbencoding
 
 /**
-  * Provides additional BencodingFormats and helpers
+ * Provides additional BencodingFormats and helpers
  */
 trait AdditionalFormats {
 
@@ -19,7 +19,7 @@ trait AdditionalFormats {
     def write(value: BcList) = value
     def read(value: BcValue) = value match {
       case x: BcList => x
-      case _ => deserializationError("JSON array expected")
+      case _         => deserializationError("JSON array expected")
     }
   }
 
@@ -40,7 +40,7 @@ trait AdditionalFormats {
   /**
    * Turns a BencodingWriter into a BencodingFormat that throws an UnsupportedOperationException for reads.
    */
-  def lift[T](writer :BencodingWriter[T]) = new BencodingFormat[T] {
+  def lift[T](writer: BencodingWriter[T]) = new BencodingFormat[T] {
     def write(obj: T): BcValue = writer.write(obj)
     def read(value: BcValue) =
       throw new UnsupportedOperationException("BencodingReader implementation missing")
@@ -49,13 +49,13 @@ trait AdditionalFormats {
   /**
    * Turns a RootBencodingWriter into a RootBencodingFormat that throws an UnsupportedOperationException for reads.
    */
-  def lift[T](writer :RootBencodingWriter[T]): RootBencodingFormat[T] =
-    rootFormat(lift(writer :BencodingWriter[T]))
+  def lift[T](writer: RootBencodingWriter[T]): RootBencodingFormat[T] =
+    rootFormat(lift(writer: BencodingWriter[T]))
 
   /**
    * Turns a BencodingReader into a BencodingFormat that throws an UnsupportedOperationException for writes.
    */
-  def lift[T <: AnyRef](reader :BencodingReader[T]) = new BencodingFormat[T] {
+  def lift[T <: AnyRef](reader: BencodingReader[T]) = new BencodingFormat[T] {
     def write(obj: T): BcValue =
       throw new UnsupportedOperationException("No BencodingWriter[" + obj.getClass + "] available")
     def read(value: BcValue) = reader.read(value)
@@ -64,8 +64,8 @@ trait AdditionalFormats {
   /**
    * Turns a RootBencodingReader into a RootBencodingFormat that throws an UnsupportedOperationException for writes.
    */
-  def lift[T <: AnyRef](reader :RootBencodingReader[T]): RootBencodingFormat[T] =
-    rootFormat(lift(reader :BencodingReader[T]))
+  def lift[T <: AnyRef](reader: RootBencodingReader[T]): RootBencodingFormat[T] =
+    rootFormat(lift(reader: BencodingReader[T]))
 
   /**
    * Lazy wrapper around serialization. Useful when you want to serialize (mutually) recursive structures.
@@ -87,7 +87,7 @@ trait AdditionalFormats {
   /**
    * Wraps an existing BencodingReader with Exception protection.
    */
-  def safeReader[A :BencodingReader] = new BencodingReader[Either[Exception, A]] {
+  def safeReader[A: BencodingReader] = new BencodingReader[Either[Exception, A]] {
     def read(json: BcValue) = {
       try {
         Right(json.convertTo[A])

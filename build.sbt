@@ -1,10 +1,11 @@
 import SonatypeKeys._
+import scalariform.formatter.preferences._
 
 name := "sbencoding"
 
 organization := "com.github.zhaoyao"
 
-version := "0.1"
+version := "0.1.0-SNAPSHOT"
 
 scalaVersion := "2.11.6"
 
@@ -12,6 +13,18 @@ libraryDependencies ++= Seq(
   "org.specs2" %% "specs2-core" % "2.4.16" % "test",
   "org.specs2" %% "specs2-scalacheck" % "2.4.16" % "test",
   "org.scalacheck" %% "scalacheck" % "1.12.2" % "test"
+)
+
+scalacOptions ++= Seq(
+  "-unchecked",
+  "-deprecation",
+  "-Xlint",
+  "-Ywarn-dead-code",
+  "-feature",
+  //  "-Ylog-classpath",
+  "-language:_",
+  "-target:jvm-1.7",
+  "-encoding", "UTF-8"
 )
 
 // generate boilerplate
@@ -50,3 +63,14 @@ pomExtra := (
     </developers>)
 
 xerial.sbt.Sonatype.sonatypeSettings
+
+scalariformSettings
+
+ScalariformKeys.preferences := ScalariformKeys.preferences.value
+  .setPreference(AlignParameters, true)
+  .setPreference(AlignSingleLineCaseStatements, true)
+  .setPreference(DoubleIndentClassDeclaration, true)
+  .setPreference(PreserveDanglingCloseParenthesis, true)
+  .setPreference(SpacesWithinPatternBinders, true)
+
+lazy val sbencoding = project.in(file("."))

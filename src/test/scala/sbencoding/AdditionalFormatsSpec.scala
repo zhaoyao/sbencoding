@@ -11,7 +11,7 @@ class AdditionalFormatsSpec extends Specification {
   case class Container[A](inner: Option[A])
 
   object ReaderProtocol extends DefaultBencodingProtocol {
-    implicit def containerReader[T :BencodingFormat] = lift {
+    implicit def containerReader[T: BencodingFormat] = lift {
       new BencodingReader[Container[T]] {
         def read(value: BcValue) = value match {
           case BcDict(fields) if fields.contains("content") => Container(Some(bencodingReader[T].read(fields("content"))))
@@ -22,7 +22,7 @@ class AdditionalFormatsSpec extends Specification {
   }
 
   object WriterProtocol extends DefaultBencodingProtocol {
-    implicit def containerWriter[T :BencodingFormat] = lift {
+    implicit def containerWriter[T: BencodingFormat] = lift {
       new BencodingWriter[Container[T]] {
         def write(obj: Container[T]) = BcDict("content" -> obj.inner.toBencoding)
       }

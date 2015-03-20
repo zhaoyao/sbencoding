@@ -5,7 +5,7 @@ import org.specs2.mutable.Specification
 /**
  * User: zhaoyao
  * Date: 3/19/15
- * Time: 13:22                                
+ * Time: 13:22
  */
 class BencodingParserSpec extends Specification {
 
@@ -20,13 +20,13 @@ class BencodingParserSpec extends Specification {
     }
 
     "parse a simple BcDict" in (
-      BencodingParser( """d3:keyi42e4:key25:valuee""") ===
-        BcDict("key" -> BcInt(42), "key2" -> BcString("value", "UTF-8"))
-      )
+      BencodingParser("""d3:keyi42e4:key25:valuee""") ===
+      BcDict("key" -> BcInt(42), "key2" -> BcString("value", "UTF-8"))
+    )
     "parse a simple BcList" in (
-      BencodingParser( """li123ed3:key4:trueee""") ===
-        BcList(BcInt(123), BcDict("key" -> BcString("true", "UTF-8")))
-      )
+      BencodingParser("""li123ed3:key4:trueee""") ===
+      BcList(BcInt(123), BcDict("key" -> BcString("true", "UTF-8")))
+    )
   }
 
 }

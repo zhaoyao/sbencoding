@@ -1,8 +1,8 @@
 package sbencoding
 
-import java.io.{ByteArrayOutputStream, OutputStream}
+import java.io.{ ByteArrayOutputStream, OutputStream }
 
-trait BencodingPrinter extends (BcValue => Array[Byte]){
+trait BencodingPrinter extends (BcValue => Array[Byte]) {
 
   def apply(x: BcValue): Array[Byte] = {
     val out = new ByteArrayOutputStream()
@@ -26,9 +26,9 @@ trait BencodingPrinter extends (BcValue => Array[Byte]){
         out.write('d')
         fields.toList.sortWith((x, y) => x._1 < y._1)
           .foreach { p =>
-          printString(p._1, out)
-          print(p._2, out)
-        }
+            printString(p._1, out)
+            print(p._2, out)
+          }
         out.write('e')
       case BcNil => // ignore
 

@@ -48,7 +48,6 @@ class BasicFormatsSpec extends Specification with DefaultBencodingProtocol {
     }
   }
 
-
   "The StringJsonFormat" should {
     "convert a String to a BcString" in {
       "Hello".toBencoding mustEqual BcString("Hello".getBytes("UTF-8"))

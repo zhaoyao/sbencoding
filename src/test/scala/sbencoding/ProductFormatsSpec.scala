@@ -30,7 +30,6 @@ class ProductFormatsSpec extends Specification {
   }
   object TestProtocol1 extends DefaultBencodingProtocol with TestProtocol
 
-
   "A BencodingFormat created with `bencodingFormat`, for a case class with 2 elements," should {
     import TestProtocol1._
     val obj = Test2(42, Some(42))
@@ -46,8 +45,8 @@ class ProductFormatsSpec extends Specification {
 
     "throw a DeserializationException if the JsObject does not all required members" in (
       BcDict("b" -> BcInt(42)).convertTo[Test2] must
-        throwA(new DeserializationException("Object is missing required member 'a'"))
-      )
+      throwA(new DeserializationException("Object is missing required member 'a'"))
+    )
     "not require the presence of optional fields for deserialization" in {
       BcDict("a" -> BcInt(42)).convertTo[Test2] mustEqual Test2(42, None)
     }
@@ -79,26 +78,26 @@ class ProductFormatsSpec extends Specification {
   }
 
   "A BencodingFormat for a case class with 18 parameters and created with `bencodingFormat`" should {
-    
+
     case class Test18(
-                       a1: String,
-                       a2: String,
-                       a3: String,
-                       a4: String,
-                       a5: Int,
-                       a6: String,
-                       a7: String,
-                       a8: String,
-                       a9: String,
-                       a10: String,
-                       a11: String,
-                       a12: Int,
-                       a13: String,
-                       a14: String,
-                       a15: String,
-                       a16: String,
-                       a17: String,
-                       a18: String)
+      a1: String,
+      a2: String,
+      a3: String,
+      a4: String,
+      a5: Int,
+      a6: String,
+      a7: String,
+      a8: String,
+      a9: String,
+      a10: String,
+      a11: String,
+      a12: Int,
+      a13: String,
+      a14: String,
+      a15: String,
+      a16: String,
+      a17: String,
+      a18: String)
 
     object Test18Protocol extends DefaultBencodingProtocol {
       implicit val test18Format = bencodingFormat18(Test18)
@@ -155,7 +154,7 @@ class ProductFormatsSpec extends Specification {
     }
     "throw a DeserializationException if the BcValue is not a BcDict" in (
       BcNil.convertTo[Test0] must throwA(new DeserializationException("Object expected"))
-      )
+    )
   }
 
   "A BencodingFormat created with `bencodingFormat`, for a case class with mangled-name members," should {

@@ -32,18 +32,17 @@ trait ProductFormats extends ProductFormatsInstances {
       def write(p: T) = BcDict()
       def read(value: BcValue) = value match {
         case BcDict(_) => construct()
-        case _ => throw new DeserializationException("Object expected")
+        case _         => throw new DeserializationException("Object expected")
       }
     }
 
   // helpers
-  
-  protected def productElement2Field[T](fieldName: String, p: Product, ix: Int, rest: List[BcField] = Nil)
-                                       (implicit writer: BencodingWriter[T]): List[BcField] = {
+
+  protected def productElement2Field[T](fieldName: String, p: Product, ix: Int, rest: List[BcField] = Nil)(implicit writer: BencodingWriter[T]): List[BcField] = {
     val value = p.productElement(ix).asInstanceOf[T]
     writer match {
       case _: OptionFormat[_] if (value == None) => rest
-      case _ => (fieldName, writer.write(value)) :: rest
+      case _                                     => (fieldName, writer.write(value)) :: rest
     }
   }
 
@@ -55,8 +54,7 @@ trait ProductFormats extends ProductFormatsInstances {
           val fieldValue = x.fields(fieldName)
           fieldFound = true
           reader.read(fieldValue)
-        }
-        catch {
+        } catch {
           case e: NoSuchElementException if !fieldFound =>
             if (reader.isInstanceOf[OptionFormat[_]]) None.asInstanceOf[T]
             else deserializationError("Object is missing required member '" + fieldName + "'", e)
@@ -107,7 +105,8 @@ object ProductFormats {
     "$qmark" -> "?",
     "$bar" -> "|")
 
-  private def unmangle(name: String) = operators.foldLeft(name) { case (n, (mangled, unmangled)) =>
-    if (n.indexOf(mangled) >= 0) n.replace(mangled, unmangled) else n
+  private def unmangle(name: String) = operators.foldLeft(name) {
+    case (n, (mangled, unmangled)) =>
+      if (n.indexOf(mangled) >= 0) n.replace(mangled, unmangled) else n
   }
 }

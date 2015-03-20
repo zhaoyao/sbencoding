@@ -9,7 +9,6 @@ import org.specs2.mutable.Specification
  */
 class StandardFormatsSpec extends Specification with DefaultBencodingProtocol {
 
-
   "The optionFormat" should {
     "convert None to BcNil" in {
       None.asInstanceOf[Option[Int]].toBencoding mustEqual BcNil
@@ -58,7 +57,7 @@ class StandardFormatsSpec extends Specification with DefaultBencodingProtocol {
       (42, 42).toBencoding mustEqual b
     }
     "be able to convert a BcList to a (Int, Int)]" in {
-      b.convertTo[(Int, Int)] mustEqual (42, 42)
+      b.convertTo[(Int, Int)] mustEqual ((42, 42))
     }
   }
 
@@ -68,7 +67,7 @@ class StandardFormatsSpec extends Specification with DefaultBencodingProtocol {
       (42, 42, 3).toBencoding mustEqual b
     }
     "be able to convert a BcList to a (Int, Int, Int)]" in {
-      b.convertTo[(Int, Int, Int)] mustEqual (42, 42, 3)
+      b.convertTo[(Int, Int, Int)] mustEqual ((42, 42, 3))
     }
   }
   "The tuple4Format" should {
@@ -77,7 +76,7 @@ class StandardFormatsSpec extends Specification with DefaultBencodingProtocol {
       (42, 42, 3, 4).toBencoding mustEqual b
     }
     "be able to convert a BcList to a (Int, Int, Int, Int)]" in {
-      b.convertTo[(Int, Int, Int, Int)] mustEqual (42, 42, 3, 4)
+      b.convertTo[(Int, Int, Int, Int)] mustEqual ((42, 42, 3, 4))
     }
   }
   "The tuple5Format" should {
@@ -86,7 +85,7 @@ class StandardFormatsSpec extends Specification with DefaultBencodingProtocol {
       (42, 42, 3, 4, 5).toBencoding mustEqual b
     }
     "be able to convert a BcList to a (Int, Int, Int, Int, Int)]" in {
-      b.convertTo[(Int, Int, Int, Int, Int)] mustEqual (42, 42, 3, 4, 5)
+      b.convertTo[(Int, Int, Int, Int, Int)] mustEqual ((42, 42, 3, 4, 5))
     }
   }
   "The tuple6Format" should {
@@ -95,7 +94,7 @@ class StandardFormatsSpec extends Specification with DefaultBencodingProtocol {
       (42, 42, 3, 4, 5, 6).toBencoding mustEqual b
     }
     "be able to convert a BcList to a (Int, Int, Int, Int, Int, Int)]" in {
-      b.convertTo[(Int, Int, Int, Int, Int, Int)] mustEqual (42, 42, 3, 4, 5, 6)
+      b.convertTo[(Int, Int, Int, Int, Int, Int)] mustEqual ((42, 42, 3, 4, 5, 6))
     }
   }
   "The tuple7Format" should {
@@ -104,7 +103,7 @@ class StandardFormatsSpec extends Specification with DefaultBencodingProtocol {
       (42, 42, 3, 4, 5, 6, 7).toBencoding mustEqual b
     }
     "be able to convert a BcList to a (Int, Int, Int, Int, Int, Int, Int)]" in {
-      b.convertTo[(Int, Int, Int, Int, Int, Int, Int)] mustEqual (42, 42, 3, 4, 5, 6, 7)
+      b.convertTo[(Int, Int, Int, Int, Int, Int, Int)] mustEqual ((42, 42, 3, 4, 5, 6, 7))
     }
   }
 }

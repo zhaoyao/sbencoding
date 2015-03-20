@@ -1,6 +1,6 @@
 package sbencoding
 
-import java.io.{ByteArrayInputStream, EOFException, InputStream}
+import java.io.{ ByteArrayInputStream, EOFException, InputStream }
 
 import sun.security.pkcs.ParsingException
 
@@ -58,7 +58,7 @@ class BencodingParser(input: InputStream) {
   def value(): BcValue = {
     c match {
       case -1 =>
-       //eof
+        //eof
         throw new EOFException()
 
       case 'l' =>
@@ -86,7 +86,7 @@ class BencodingParser(input: InputStream) {
 
   def assertAndNext(required: Byte): Unit = {
     if (c == required) next()
-    else throw new ParsingException("'"+required + "' is required, but got: " + c)
+    else throw new ParsingException("'" + required + "' is required, but got: " + c)
   }
 
   def list() = {

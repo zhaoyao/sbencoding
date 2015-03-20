@@ -18,16 +18,31 @@ package object sbencoding {
 
 package sbencoding {
 
-import scala.io.Codec
+  import java.nio.ByteBuffer
 
-class DeserializationException(msg: String, cause: Throwable = null) extends RuntimeException(msg, cause)
-class SerializationException(msg: String) extends RuntimeException(msg)
+  import scala.io.Codec
 
-private[sbencoding] class PimpedAny[T](any: T) {
-  def toBencoding(implicit writer: BencodingWriter[T]): BcValue = writer.write(any)
-}
+  class DeserializationException(msg: String, cause: Throwable = null) extends RuntimeException(msg, cause)
+  class SerializationException(msg: String) extends RuntimeException(msg)
 
-private[sbencoding] class PimpedString(string: String)(implicit codec: Codec) {
-  def parseBencoding: BcValue = BencodingParser(string.getBytes)
-}
+  private[sbencoding] class PimpedAny[T](any: T) {
+    def toBencoding(implicit writer: BencodingWriter[T]): BcValue = writer.write(any)
+  }
+
+  private[sbencoding] class PimpedString(string: String)(implicit codec: Codec) {
+    def parseBencoding: BcValue = BencodingParser(string.getBytes(codec.charSet))
+  }
+
+  private[sbencoding] class PimpedByteArray(bytes: Array[Byte])(implicit codec: Codec) {
+    def parseBencoding: BcValue = BencodingParser(bytes)
+  }
+
+  private[sbencoding] class PimpedByteBuffer(buffer: ByteBuffer) {
+    def parseBencoding: BcValue = {
+      val bytes = new Array[Byte](buffer.remaining())
+      buffer.get(bytes)
+      BencodingParser(bytes)
+    }
+  }
+
 }

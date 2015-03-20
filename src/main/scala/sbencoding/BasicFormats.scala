@@ -2,9 +2,8 @@ package sbencoding
 
 import scala.io.Codec
 
-
 /**
-  * Provides the BencodingFormats for the most important Scala types.
+ * Provides the BencodingFormats for the most important Scala types.
  */
 trait BasicFormats {
 
@@ -12,7 +11,7 @@ trait BasicFormats {
     def write(x: Int) = BcInt(x)
     def read(value: BcValue) = value match {
       case BcInt(x) => x.intValue
-      case x => deserializationError("Expected Int as BcNumber, but got " + x)
+      case x        => deserializationError("Expected Int as BcNumber, but got " + x)
     }
   }
 
@@ -20,7 +19,7 @@ trait BasicFormats {
     def write(x: Long) = BcInt(x)
     def read(value: BcValue) = value match {
       case BcInt(x) => x.longValue
-      case x => deserializationError("Expected Long as BcNumber, but got " + x)
+      case x        => deserializationError("Expected Long as BcNumber, but got " + x)
     }
   }
 
@@ -28,7 +27,7 @@ trait BasicFormats {
     def write(x: Byte) = BcInt(x)
     def read(value: BcValue) = value match {
       case BcInt(x) => x.byteValue
-      case x => deserializationError("Expected Byte as BcNumber, but got " + x)
+      case x        => deserializationError("Expected Byte as BcNumber, but got " + x)
     }
   }
 
@@ -36,7 +35,7 @@ trait BasicFormats {
     def write(x: Short) = BcInt(x)
     def read(value: BcValue) = value match {
       case BcInt(x) => x.shortValue
-      case x => deserializationError("Expected Short as BcNumber, but got " + x)
+      case x        => deserializationError("Expected Short as BcNumber, but got " + x)
     }
   }
 
@@ -45,20 +44,20 @@ trait BasicFormats {
     def read(value: BcValue) = value match {
       case BcInt(1) => true
       case BcInt(0) => false
-      case x => deserializationError("Expected JsBoolean, but got " + x)
+      case x        => deserializationError("Expected JsBoolean, but got " + x)
     }
   }
 
   implicit object CharBencodingFormat extends BencodingFormat[Char] {
     def write(x: Char) = {
       if (x < 0xff)
-       BcString(x.toString, "ascii")
+        BcString(x.toString, "ascii")
       else
         serializationError("Expected Char in range 0x00 to 0xff, but got " + x)
     }
     def read(value: BcValue) = value match {
       case BcString(x) if x.length == 1 => x(0).toChar
-      case x => deserializationError("Expected Char as single-character JsString, but got " + x)
+      case x                            => deserializationError("Expected Char as single-character JsString, but got " + x)
     }
   }
 
@@ -75,7 +74,7 @@ trait BasicFormats {
     }
     def read(value: BcValue) = value match {
       case BcString(x) => new String(x, "UTF-8")
-      case x => deserializationError("Expected String as BcString, but got " + x)
+      case x           => deserializationError("Expected String as BcString, but got " + x)
     }
   }
 

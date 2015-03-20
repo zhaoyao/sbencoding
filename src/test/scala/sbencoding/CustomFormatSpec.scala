@@ -14,7 +14,7 @@ class CustomFormatSpec extends Specification with DefaultBencodingProtocol {
     def read(v: BcValue) = {
       v.asBcDict.getFields("name", "value") match {
         case Seq(BcString(name), BcInt(value)) => MyType(new String(name, "UTF-8"), value.toInt)
-        case _ => deserializationError("Expected fields: 'name' (Bencoding string) and 'value' (Bencoding int)")
+        case _                                 => deserializationError("Expected fields: 'name' (Bencoding string) and 'value' (Bencoding int)")
       }
     }
     def write(obj: MyType) = BcDict("name" -> BcString(obj.name, "UTF-8"), "value" -> BcInt(obj.value))

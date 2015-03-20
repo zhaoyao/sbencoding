@@ -23,12 +23,12 @@ import java.util
 import collection.immutable
 
 /**
-  * The general type of a Bencoding AST node.
+ * The general type of a Bencoding AST node.
  */
 sealed abstract class BcValue {
-  override def toString = toString( (x) => new String(BencodingPrinter(x)) )
+  override def toString = toString((x) => new String(BencodingPrinter(x)))
   def toString(printer: (BcValue => String)) = printer(this)
-  def convertTo[T :BencodingReader]: T = bencodingReader[T].read(this)
+  def convertTo[T: BencodingReader]: T = bencodingReader[T].read(this)
 
   /**
    * Returns `this` if this JsValue is a JsObject, otherwise throws a DeserializationException with the given error msg.
@@ -43,7 +43,7 @@ sealed abstract class BcValue {
 }
 
 /**
-  * A Bencoding object.
+ * A Bencoding object.
  */
 case class BcDict(fields: Map[String, BcValue]) extends BcValue {
   override def asBcDict(errorMsg: String) = this
@@ -54,7 +54,7 @@ object BcDict {
 }
 
 /**
-  * A Bencoding array.
+ * A Bencoding array.
  */
 case class BcList(elements: Vector[BcValue]) extends BcValue
 object BcList {
@@ -62,12 +62,12 @@ object BcList {
 }
 
 /**
-  * A Bencoding string.
+ * A Bencoding string.
  */
 case class BcString(value: Array[Byte]) extends BcValue {
   override def equals(obj: scala.Any): Boolean = obj match {
     case BcString(d) => util.Arrays.equals(this.value, d)
-    case _ => false
+    case _           => false
   }
 }
 
@@ -76,9 +76,8 @@ object BcString {
   def apply(value: String, charset: String): BcString = BcString(value.getBytes(charset))
 }
 
-
 /**
-  * A Bencoding number.
+ * A Bencoding number.
  */
 case class BcInt(value: Long) extends BcValue
 
