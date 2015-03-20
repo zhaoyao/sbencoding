@@ -58,7 +58,7 @@ pomExtra := (
     <developers>
       <developer>
         <id>zhaoyao</id>
-        <name>Zhao Yao</name>
+        <name>Yao Zhao</name>
       </developer>
     </developers>)
 
