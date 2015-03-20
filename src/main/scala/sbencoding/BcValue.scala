@@ -47,7 +47,7 @@ sealed abstract class BcValue {
  */
 case class BcDict(fields: Map[String, BcValue]) extends BcValue {
   override def asBcDict(errorMsg: String) = this
-  def getFields(fieldNames: String*): immutable.Seq[BcValue] = fieldNames.flatMap(fields.get)(collection.breakOut)
+  def getFields(fieldNames: String*): immutable.Seq[BcValue] = fieldNames.map(n => fields.getOrElse(n, BcNil))(collection.breakOut)
 }
 object BcDict {
   def apply(members: BcField*) = new BcDict(Map(members: _*))
