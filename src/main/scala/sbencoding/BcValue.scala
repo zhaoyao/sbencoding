@@ -28,6 +28,7 @@ import collection.immutable
 sealed abstract class BcValue {
   override def toString = toString((x) => new String(BencodingPrinter(x)))
   def toString(printer: (BcValue => String)) = printer(this)
+  def toByteArray(printer: (BcValue => Array[Byte]) = BencodingPrinter) = printer(this)
   def convertTo[T: BencodingReader]: T = bencodingReader[T].read(this)
 
   /**
