@@ -33,11 +33,11 @@ package sbencoding {
     def toBencoding(implicit writer: BencodingWriter[T]): BcValue = writer.write(any)
   }
 
-  private[sbencoding] class PimpedString(string: String)(implicit codec: Codec) {
-    def parseBencoding: BcValue = BencodingParser(string.getBytes(codec.charSet))
+  private[sbencoding] class PimpedString(string: String) {
+    def parseBencoding(implicit codec: Codec): BcValue = BencodingParser(string.getBytes(codec.charSet))
   }
 
-  private[sbencoding] class PimpedByteArray(bytes: Array[Byte])(implicit codec: Codec) {
+  private[sbencoding] class PimpedByteArray(bytes: Array[Byte]) {
     def parseBencoding: BcValue = BencodingParser(bytes)
   }
 
