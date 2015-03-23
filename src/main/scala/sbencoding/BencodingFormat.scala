@@ -24,7 +24,7 @@ import annotation.implicitNotFound
  */
 @implicitNotFound(msg = "Cannot find BencodingReader or BencodingFormat type class for ${T}")
 trait BencodingReader[T] {
-  def read(Bencoding: BcValue): T
+  def read(value: BcValue): T
 }
 
 object BencodingReader {
