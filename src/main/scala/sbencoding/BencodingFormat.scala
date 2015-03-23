@@ -29,7 +29,7 @@ trait BencodingReader[T] {
 
 object BencodingReader {
   implicit def func2Reader[T](f: BcValue => T): BencodingReader[T] = new BencodingReader[T] {
-    def read(Bencoding: BcValue) = f(Bencoding)
+    def read(value: BcValue) = f(value)
   }
 }
 

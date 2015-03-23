@@ -26,7 +26,7 @@ trait AdditionalFormats {
   /**
    * Constructs a BencodingFormat from its two parts, BencodingReader and BencodingWriter.
    */
-  def BencodingFormat[T](reader: BencodingReader[T], writer: BencodingWriter[T]) = new BencodingFormat[T] {
+  def bencodingFormat[T](reader: BencodingReader[T], writer: BencodingWriter[T]) = new BencodingFormat[T] {
     def write(obj: T) = writer.write(obj)
     def read(json: BcValue) = reader.read(json)
   }
