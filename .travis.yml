@@ -1,8 +1,12 @@
- language: scala
-
- scala:
-   - 2.11.6
-
- jdk:
-   - oraclejdk7
-   - openjdk7
+language: scala
+scala:
+- 2.11.6
+jdk:
+- oraclejdk7
+- openjdk7
+after_success:
+- '[[ $TRAVIS_BRANCH == "master" ]] && { sbt publish; };'
+env:
+  global:
+  - secure: bGjvSfbmfA22Kq7qPsXFmmTZlY5LbbAn0+tFsEwx+wzQHScvUj/tf6RqbhayGBO7esxx76Vf+4K0LVCmwSX7rIV2OYGQFl5JZtV91TwQMNJOIHMJXB8xeNvgmc9hc1apbNDng09KVaqDc2MHcUCP6CPENLq3PJIG5igSvqCxjWA=
+  - secure: vR6zHy1pHE1kL7prA7KlRyYSrZkxTy3KinyThcNydgC6M6TM7/FiDZu1BWRdHehFRlntaeyjecuBXb6eCTy6mLU1iwy5t/ux1k5JVhhqLV6peOKjLXFSZyMNqDl87Z8JNjqz/ow2NPGbvTuBhygTlfJm584/KYylm4U5Z7tGJ/o=

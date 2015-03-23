@@ -10,7 +10,7 @@ import org.specs2.mutable.Specification
 class CustomFormatSpec extends Specification with DefaultBencodingProtocol {
   case class MyType(name: String, value: Int)
 
-  implicit val MyTypeProtocol = new RootBencodingFormat[MyType] {
+  implicit val MyTypeProtocol = new BencodingFormat[MyType] {
     def read(v: BcValue) = {
       v.asBcDict.getFields("name", "value") match {
         case Seq(BcString(name), BcInt(value)) => MyType(new String(name, "UTF-8"), value.toInt)
