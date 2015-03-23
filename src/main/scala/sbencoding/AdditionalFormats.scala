@@ -19,7 +19,7 @@ trait AdditionalFormats {
     def write(value: BcList) = value
     def read(value: BcValue) = value match {
       case x: BcList => x
-      case _         => deserializationError("JSON array expected")
+      case _         => deserializationError("Bencoding array expected")
     }
   }
 

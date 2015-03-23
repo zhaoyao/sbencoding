@@ -58,6 +58,8 @@ trait ProductFormats extends ProductFormatsInstances {
           case e: NoSuchElementException if !fieldFound =>
             if (reader.isInstanceOf[OptionFormat[_]]) None.asInstanceOf[T]
             else deserializationError("Object is missing required member '" + fieldName + "'", e)
+          case e: DeserializationException =>
+            deserializationError("Unable to deserialize member '" + fieldName + "'", e)
         }
       case _ => deserializationError("Object expected in field '" + fieldName + "'")
     }

@@ -46,7 +46,7 @@ trait StandardFormats {
     def write(t: (A, B)) = BcList(t._1.toBencoding, t._2.toBencoding)
     def read(value: BcValue) = value match {
       case BcList(Seq(a, b)) => (a.convertTo[A], b.convertTo[B])
-      case x                 => deserializationError("Expected Tuple2 as BcList, but got " + x)
+      case x                 => deserializationError("Expected Tuple2 as BcList, but got " + x.getClass.getSimpleName)
     }
   }
 
@@ -54,7 +54,7 @@ trait StandardFormats {
     def write(t: (A, B, C)) = BcList(t._1.toBencoding, t._2.toBencoding, t._3.toBencoding)
     def read(value: BcValue) = value match {
       case BcList(Seq(a, b, c)) => (a.convertTo[A], b.convertTo[B], c.convertTo[C])
-      case x                    => deserializationError("Expected Tuple3 as BcList, but got " + x)
+      case x                    => deserializationError("Expected Tuple3 as BcList, but got " + x.getClass.getSimpleName)
     }
   }
 
@@ -62,7 +62,7 @@ trait StandardFormats {
     def write(t: (A, B, C, D)) = BcList(t._1.toBencoding, t._2.toBencoding, t._3.toBencoding, t._4.toBencoding)
     def read(value: BcValue) = value match {
       case BcList(Seq(a, b, c, d)) => (a.convertTo[A], b.convertTo[B], c.convertTo[C], d.convertTo[D])
-      case x                       => deserializationError("Expected Tuple4 as BcList, but got " + x)
+      case x                       => deserializationError("Expected Tuple4 as BcList, but got " + x.getClass.getSimpleName)
     }
   }
 
@@ -72,7 +72,7 @@ trait StandardFormats {
       def read(value: BcValue) = value match {
         case BcList(Seq(a, b, c, d, e)) =>
           (a.convertTo[A], b.convertTo[B], c.convertTo[C], d.convertTo[D], e.convertTo[E])
-        case x => deserializationError("Expected Tuple5 as BcList, but got " + x)
+        case x => deserializationError("Expected Tuple5 as BcList, but got " + x.getClass.getSimpleName)
       }
     }
   }
@@ -83,7 +83,7 @@ trait StandardFormats {
       def read(value: BcValue) = value match {
         case BcList(Seq(a, b, c, d, e, f)) =>
           (a.convertTo[A], b.convertTo[B], c.convertTo[C], d.convertTo[D], e.convertTo[E], f.convertTo[F])
-        case x => deserializationError("Expected Tuple6 as BcList, but got " + x)
+        case x => deserializationError("Expected Tuple6 as BcList, but got " + x.getClass.getSimpleName)
       }
     }
   }
@@ -94,7 +94,7 @@ trait StandardFormats {
       def read(value: BcValue) = value match {
         case BcList(Seq(a, b, c, d, e, f, g)) =>
           (a.convertTo[A], b.convertTo[B], c.convertTo[C], d.convertTo[D], e.convertTo[E], f.convertTo[F], g.convertTo[G])
-        case x => deserializationError("Expected Tuple7 as BcList, but got " + x)
+        case x => deserializationError("Expected Tuple7 as BcList, but got " + x.getClass.getSimpleName)
       }
     }
   }

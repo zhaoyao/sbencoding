@@ -11,7 +11,7 @@ trait CollectionFormats {
     def write(list: List[T]) = BcList(list.map(_.toBencoding).toVector)
     def read(value: BcValue): List[T] = value match {
       case BcList(elements) => elements.map(_.convertTo[T])(collection.breakOut)
-      case x                => deserializationError("Expected List as BcList, but got " + x)
+      case x                => deserializationError("Expected List as BcList, but got " + x.getClass.getSimpleName)
     }
   }
 
@@ -23,7 +23,7 @@ trait CollectionFormats {
     def read(value: BcValue) = value match {
       case BcList(elements) => elements.map(_.convertTo[T]).toArray[T]
       case BcString(data) if scala.reflect.classTag[T].runtimeClass == classOf[Byte] => data.asInstanceOf[Array[T]]
-      case x                => deserializationError("Expected Array as BcList, but got " + x)
+      case x                => deserializationError("Expected Array as BcList, but got " + x.getClass.getSimpleName)
     }
   }
 
@@ -36,7 +36,7 @@ trait CollectionFormats {
       m.map { field =>
         field._1.toBencoding match {
           case BcString(x) => new String(x, "UTF-8") -> field._2.toBencoding
-          case x           => throw new SerializationException("Map key must be formatted as BcString, not '" + x + "'")
+          case x           => throw new SerializationException("Map key must be formatted as BcString, not '" + x.getClass.getSimpleName + "'")
         }
       }
         // skip None value
@@ -47,7 +47,7 @@ trait CollectionFormats {
       case x: BcDict => x.fields.map { field =>
         (BcString(field._1.getBytes("UTF-8")).convertTo[K], field._2.convertTo[V])
       }(collection.breakOut)
-      case x => deserializationError("Expected Map as BcDict, but got " + x)
+      case x => deserializationError("Expected Map as BcDict, but got " + x.getClass.getSimpleName)
     }
   }
 
@@ -76,7 +76,7 @@ trait CollectionFormats {
     def write(iterable: I) = BcList(iterable.map(_.toBencoding).filterNot(_ eq BcNil).toVector)
     def read(value: BcValue) = value match {
       case BcList(elements) => f(elements.map(_.convertTo[T]))
-      case x                => deserializationError("Expected Collection as BcList, but got " + x)
+      case x                => deserializationError("Expected Collection as BcList, but got " + x.getClass.getSimpleName)
     }
   }
 }
