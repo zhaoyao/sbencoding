@@ -7,7 +7,7 @@ trait CollectionFormats {
   /**
    * Supplies the BencodingFormat for Lists.
    */
-  implicit def listFormat[T: BencodingFormat] = new RootBencodingFormat[List[T]] {
+  implicit def listFormat[T: BencodingFormat] = new BencodingFormat[List[T]] {
     def write(list: List[T]) = BcList(list.map(_.toBencoding).toVector)
     def read(value: BcValue): List[T] = value match {
       case BcList(elements) => elements.map(_.convertTo[T])(collection.breakOut)
@@ -18,7 +18,7 @@ trait CollectionFormats {
   /**
    * Supplies the BencodingFormat for Arrays.
    */
-  implicit def arrayFormat[T: BencodingFormat: ClassTag] = new RootBencodingFormat[Array[T]] {
+  implicit def arrayFormat[T: BencodingFormat: ClassTag] = new BencodingFormat[Array[T]] {
     def write(array: Array[T]) = BcList(array.map(_.toBencoding).toVector)
     def read(value: BcValue) = value match {
       case BcList(elements) => elements.map(_.convertTo[T]).toArray[T]
@@ -30,7 +30,7 @@ trait CollectionFormats {
    * Supplies the BencodingFormat for Maps. The implicitly available BencodingFormat for the key type K must
    * always write BcStrings, otherwise a [[sbencoding.SerializationException]] will be thrown.
    */
-  implicit def mapFormat[K: BencodingFormat, V: BencodingFormat] = new RootBencodingFormat[Map[K, V]] {
+  implicit def mapFormat[K: BencodingFormat, V: BencodingFormat] = new BencodingFormat[Map[K, V]] {
     def write(m: Map[K, V]) = BcDict {
       m.map { field =>
         field._1.toBencoding match {
@@ -71,7 +71,7 @@ trait CollectionFormats {
    * A BencodingFormat construction helper that creates a BencodingFormat for an Iterable type I from a builder function
    * List => I.
    */
-  def viaSeq[I <: Iterable[T], T: BencodingFormat](f: imm.Seq[T] => I): RootBencodingFormat[I] = new RootBencodingFormat[I] {
+  def viaSeq[I <: Iterable[T], T: BencodingFormat](f: imm.Seq[T] => I): BencodingFormat[I] = new BencodingFormat[I] {
     def write(iterable: I) = BcList(iterable.map(_.toBencoding).filterNot(_ eq BcNil).toVector)
     def read(value: BcValue) = value match {
       case BcList(elements) => f(elements.map(_.convertTo[T]))

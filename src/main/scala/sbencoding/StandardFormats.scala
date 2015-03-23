@@ -42,7 +42,7 @@ trait StandardFormats {
     def read(value: BcValue) = Tuple1(value.convertTo[A])
   }
 
-  implicit def tuple2Format[A: BF, B: BF] = new RootBencodingFormat[(A, B)] {
+  implicit def tuple2Format[A: BF, B: BF] = new BencodingFormat[(A, B)] {
     def write(t: (A, B)) = BcList(t._1.toBencoding, t._2.toBencoding)
     def read(value: BcValue) = value match {
       case BcList(Seq(a, b)) => (a.convertTo[A], b.convertTo[B])
@@ -50,7 +50,7 @@ trait StandardFormats {
     }
   }
 
-  implicit def tuple3Format[A: BF, B: BF, C: BF] = new RootBencodingFormat[(A, B, C)] {
+  implicit def tuple3Format[A: BF, B: BF, C: BF] = new BencodingFormat[(A, B, C)] {
     def write(t: (A, B, C)) = BcList(t._1.toBencoding, t._2.toBencoding, t._3.toBencoding)
     def read(value: BcValue) = value match {
       case BcList(Seq(a, b, c)) => (a.convertTo[A], b.convertTo[B], c.convertTo[C])
@@ -58,7 +58,7 @@ trait StandardFormats {
     }
   }
 
-  implicit def tuple4Format[A: BF, B: BF, C: BF, D: BF] = new RootBencodingFormat[(A, B, C, D)] {
+  implicit def tuple4Format[A: BF, B: BF, C: BF, D: BF] = new BencodingFormat[(A, B, C, D)] {
     def write(t: (A, B, C, D)) = BcList(t._1.toBencoding, t._2.toBencoding, t._3.toBencoding, t._4.toBencoding)
     def read(value: BcValue) = value match {
       case BcList(Seq(a, b, c, d)) => (a.convertTo[A], b.convertTo[B], c.convertTo[C], d.convertTo[D])
@@ -67,7 +67,7 @@ trait StandardFormats {
   }
 
   implicit def tuple5Format[A: BF, B: BF, C: BF, D: BF, E: BF] = {
-    new RootBencodingFormat[(A, B, C, D, E)] {
+    new BencodingFormat[(A, B, C, D, E)] {
       def write(t: (A, B, C, D, E)) = BcList(t._1.toBencoding, t._2.toBencoding, t._3.toBencoding, t._4.toBencoding, t._5.toBencoding)
       def read(value: BcValue) = value match {
         case BcList(Seq(a, b, c, d, e)) =>
@@ -78,7 +78,7 @@ trait StandardFormats {
   }
 
   implicit def tuple6Format[A: BF, B: BF, C: BF, D: BF, E: BF, F: BF] = {
-    new RootBencodingFormat[(A, B, C, D, E, F)] {
+    new BencodingFormat[(A, B, C, D, E, F)] {
       def write(t: (A, B, C, D, E, F)) = BcList(t._1.toBencoding, t._2.toBencoding, t._3.toBencoding, t._4.toBencoding, t._5.toBencoding, t._6.toBencoding)
       def read(value: BcValue) = value match {
         case BcList(Seq(a, b, c, d, e, f)) =>
@@ -89,7 +89,7 @@ trait StandardFormats {
   }
 
   implicit def tuple7Format[A: BF, B: BF, C: BF, D: BF, E: BF, F: BF, G: BF] = {
-    new RootBencodingFormat[(A, B, C, D, E, F, G)] {
+    new BencodingFormat[(A, B, C, D, E, F, G)] {
       def write(t: (A, B, C, D, E, F, G)) = BcList(t._1.toBencoding, t._2.toBencoding, t._3.toBencoding, t._4.toBencoding, t._5.toBencoding, t._6.toBencoding, t._7.toBencoding)
       def read(value: BcValue) = value match {
         case BcList(Seq(a, b, c, d, e, f, g)) =>

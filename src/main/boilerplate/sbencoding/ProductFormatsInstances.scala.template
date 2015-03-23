@@ -5,11 +5,11 @@ import scala.reflect._
 trait ProductFormatsInstances { self: ProductFormats with StandardFormats =>
 [#  // Case classes with 1 parameters
 
-  def bencodingFormat1[[#P1 :BF#], T <: Product :ClassTag](construct: ([#P1#]) => T): RootBencodingFormat[T] = {
+  def bencodingFormat1[[#P1 :BF#], T <: Product :ClassTag](construct: ([#P1#]) => T): BencodingFormat[T] = {
     val Array([#p1#]) = extractFieldNames(classTag[T])
     bencodingFormat(construct, [#p1#])
   }
-  def bencodingFormat[[#P1 :BF#], T <: Product](construct: ([#P1#]) => T, [#fieldName1: String#]): RootBencodingFormat[T] = new RootBencodingFormat[T]{
+  def bencodingFormat[[#P1 :BF#], T <: Product](construct: ([#P1#]) => T, [#fieldName1: String#]): BencodingFormat[T] = new BencodingFormat[T]{
     def write(p: T) = {
       val fields = new collection.mutable.ListBuffer[(String, BcValue)]
       fields.sizeHint(1 * 2)

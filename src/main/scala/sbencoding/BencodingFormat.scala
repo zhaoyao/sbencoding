@@ -51,21 +51,3 @@ object BencodingWriter {
  * Provides the Bencoding deserialization and serialization for type T.
  */
 trait BencodingFormat[T] extends BencodingReader[T] with BencodingWriter[T]
-
-/**
- * A special BencodingReader capable of reading a legal Bencoding root object, i.e. either a Bencoding array or a Bencoding object.
- */
-@implicitNotFound(msg = "Cannot find RootBencodingReader or RootBencodingFormat type class for ${T}")
-trait RootBencodingReader[T] extends BencodingReader[T]
-
-/**
- * A special BencodingWriter capable of writing a legal Bencoding root object, i.e. either a Bencoding array or a Bencoding object.
- */
-@implicitNotFound(msg = "Cannot find RootBencodingWriter or RootBencodingFormat type class for ${T}")
-trait RootBencodingWriter[T] extends BencodingWriter[T]
-
-/**
- * A special BencodingFormat signaling that the format produces a legal Bencoding root object, i.e. either a Bencoding array
- * or a Bencoding object.
- */
-trait RootBencodingFormat[T] extends BencodingFormat[T] with RootBencodingReader[T] with RootBencodingWriter[T]

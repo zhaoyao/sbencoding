@@ -27,8 +27,8 @@ import scala.util.control.NonFatal
 trait ProductFormats extends ProductFormatsInstances {
   this: StandardFormats =>
 
-  def bencodingFormat0[T](construct: () => T): RootBencodingFormat[T] =
-    new RootBencodingFormat[T] {
+  def bencodingFormat0[T](construct: () => T): BencodingFormat[T] =
+    new BencodingFormat[T] {
       def write(p: T) = BcDict()
       def read(value: BcValue) = value match {
         case BcDict(_) => construct()
