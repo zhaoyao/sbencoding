@@ -23,7 +23,7 @@ trait CollectionFormats {
     def read(value: BcValue) = value match {
       case BcList(elements) => elements.map(_.convertTo[T]).toArray[T]
       case BcString(data) if scala.reflect.classTag[T].runtimeClass == classOf[Byte] => data.asInstanceOf[Array[T]]
-      case x                => deserializationError("Expected Array as BcList, but got " + x.getClass.getSimpleName)
+      case x => deserializationError("Expected Array as BcList, but got " + x.getClass.getSimpleName)
     }
   }
 
