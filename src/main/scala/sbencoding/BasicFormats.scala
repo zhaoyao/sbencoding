@@ -19,7 +19,7 @@ trait BasicFormats {
     def write(x: Long) = BcInt(x)
     def read(value: BcValue) = value match {
       case BcInt(x) => x.longValue
-      case x        => deserializationError("Expected Long as BcNumber, but got " + x.getClass.getSimpleName
+      case x        => deserializationError("Expected Long as BcNumber, but got " + x.getClass.getSimpleName)
     }
   }
 

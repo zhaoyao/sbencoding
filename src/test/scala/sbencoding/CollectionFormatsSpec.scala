@@ -42,7 +42,7 @@ class CollectionFormatsSpec extends Specification with DefaultBencodingProtocol 
       b.convertTo[Map[String, Long]] mustEqual map
     }
     "throw an Exception when trying to serialize a map whose key are not serialized to BcStrings" in {
-      Map(1 -> "a").toBencoding must throwA(new SerializationException("Map key must be formatted as BcString, not 'i1e'"))
+      Map(1 -> "a").toBencoding must throwA(new SerializationException("Map key must be formatted as BcString, not 'BcInt'"))
     }
   }
 
