@@ -38,10 +38,13 @@ class BencodingParser(input: InputStream) {
 
   def read(n: Int) = {
     val b = new Array[Byte](n)
-    b(0) = c.toByte //current byte
-    val r = input.read(b, 1, n - 1)
-    if (r < n - 1) {
-      throw new EOFException()
+    if (n > 0) {
+      b(0) = c.toByte //current byte
+      val r = input.read(b, 1, n - 1)
+      if (r < n - 1) {
+        throw new EOFException()
+      }
+      next()
     }
     b
   }
@@ -74,6 +77,9 @@ class BencodingParser(input: InputStream) {
       case _ if c >= '0' && c <= '9' =>
         string()
 
+      case x =>
+        throw new ParsingException("Unexpected character: " + x)
+
     }
   }
 
@@ -105,9 +111,7 @@ class BencodingParser(input: InputStream) {
     val length = readInteger()
     assertAndNext(':')
 
-    val s = BcString(read(length.toInt))
-    next()
-    s
+    BcString(read(length.toInt))
   }
 
   def dict(): BcDict = {
