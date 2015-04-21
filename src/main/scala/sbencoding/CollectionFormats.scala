@@ -38,9 +38,7 @@ trait CollectionFormats {
           case BcString(x) => new String(x, "UTF-8") -> field._2.toBencoding
           case x           => throw new SerializationException("Map key must be formatted as BcString, not '" + x.getClass.getSimpleName + "'")
         }
-      }
-        // skip None value
-        .filterNot(field => field._2 eq BcNil)
+      }.filterNot(field => field._2 eq BcNil)  /* skip None value*/
     }
 
     def read(value: BcValue) = value match {

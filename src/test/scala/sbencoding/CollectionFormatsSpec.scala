@@ -44,6 +44,19 @@ class CollectionFormatsSpec extends Specification with DefaultBencodingProtocol 
     "throw an Exception when trying to serialize a map whose key are not serialized to BcStrings" in {
       Map(1 -> "a").toBencoding must throwA(new SerializationException("Map key must be formatted as BcString, not 'BcInt'"))
     }
+
+    "Skip BcNil Value" in {
+      val complete: Option[Int] = None
+      val incomplete: Option[Int] = None
+      val d = BcDict(
+        "interval" -> BcInt(1),
+        "peers" -> BcString(Array.empty[Byte]),
+        "complete" -> complete.map(_.toBencoding).getOrElse(BcNil),
+        "incomplete" -> incomplete.map(_.toBencoding).getOrElse(BcNil)
+      )
+
+      BencodingParser(BencodingPrinter(d)).asBcDict.fields mustEqual d.fields
+    }
   }
 
   "The immutableSetFormat" should {
