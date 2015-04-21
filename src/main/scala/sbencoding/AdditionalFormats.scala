@@ -10,19 +10,6 @@ trait AdditionalFormats {
     def read(value: BcValue) = value
   }
 
-  implicit object RootBcDictFormat extends BencodingFormat[BcDict] {
-    def write(value: BcDict) = value
-    def read(value: BcValue) = value.asBcDict
-  }
-
-  implicit object RootBcListFormat extends BencodingFormat[BcList] {
-    def write(value: BcList) = value
-    def read(value: BcValue) = value match {
-      case x: BcList => x
-      case _         => deserializationError("Bencoding array expected")
-    }
-  }
-
   /**
    * Constructs a BencodingFormat from its two parts, BencodingReader and BencodingWriter.
    */
