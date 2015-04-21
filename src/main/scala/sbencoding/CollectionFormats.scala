@@ -32,14 +32,14 @@ trait CollectionFormats {
    * always write BcStrings, otherwise a [[sbencoding.SerializationException]] will be thrown.
    */
   implicit def mapFormat[K: BencodingFormat, V: BencodingFormat] = new BencodingFormat[Map[K, V]] {
-    def write(m: Map[K, V]) = BcDict {
+    def write(m: Map[K, V]) = BcDict(
       m.map { field =>
         field._1.toBencoding match {
           case BcString(x) => new String(x, "UTF-8") -> field._2.toBencoding
           case x           => throw new SerializationException("Map key must be formatted as BcString, not '" + x.getClass.getSimpleName + "'")
         }
-      }.filterNot(field => field._2 eq BcNil)  /* skip None value*/
-    }
+      }.toList: _*
+    )
 
     def read(value: BcValue) = value match {
       case x: BcDict => x.fields.map { field =>

@@ -123,7 +123,7 @@ class ProductFormatsSpec extends Specification {
         implicit val boxFormat = bencodingFormat1(Box[Int])
       }
       import BoxProtocol._
-      Box(42).toBencoding === BcDict(Map("a" -> BcInt(42)))
+      Box(42).toBencoding === BcDict("a" -> BcInt(42))
     }
   }
 

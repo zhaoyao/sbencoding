@@ -1,6 +1,6 @@
 package sbencoding
 
-import java.nio.file.{Paths, Files}
+import java.nio.file.{ Paths, Files }
 
 import org.specs2.mutable.Specification
 
