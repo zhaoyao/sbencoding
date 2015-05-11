@@ -19,7 +19,12 @@ trait CollectionFormats {
    * Supplies the BencodingFormat for Arrays.
    */
   implicit def arrayFormat[T: BencodingFormat: ClassTag] = new BencodingFormat[Array[T]] {
-    def write(array: Array[T]) = BcList(array.map(_.toBencoding).toVector)
+    def write(array: Array[T]) =
+      if (scala.reflect.classTag[T].runtimeClass == classOf[Byte]) {
+        BcString(array.asInstanceOf[Array[Byte]])
+      } else {
+        BcList(array.map(_.toBencoding).toVector)
+      }
     def read(value: BcValue) = value match {
       case BcList(elements) => elements.map(_.convertTo[T]).toArray[T]
       case BcString(data) if scala.reflect.classTag[T].runtimeClass == classOf[Byte] => data.asInstanceOf[Array[T]]

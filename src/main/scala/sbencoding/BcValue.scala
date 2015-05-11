@@ -57,7 +57,10 @@ object BcDict {
 /**
  * A Bencoding array.
  */
-case class BcList(elements: Vector[BcValue]) extends BcValue
+case class BcList(elements: Vector[BcValue]) extends BcValue with Iterable[BcValue] {
+  override def iterator: Iterator[BcValue] = elements.iterator
+}
+
 object BcList {
   def apply(elements: BcValue*) = new BcList(elements.toVector)
 }
@@ -69,6 +72,11 @@ case class BcString(value: Array[Byte]) extends BcValue {
   override def equals(obj: scala.Any): Boolean = obj match {
     case BcString(d) => util.Arrays.equals(this.value, d)
     case _           => false
+  }
+
+  def sliding(size: Int): BcList = {
+    require(value.length % size == 0)
+    BcList(value.sliding(size, size).map(BcString(_)).toList: _*)
   }
 }
 

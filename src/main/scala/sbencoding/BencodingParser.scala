@@ -2,7 +2,7 @@ package sbencoding
 
 import java.io.{ ByteArrayInputStream, EOFException, InputStream }
 
-import sun.security.pkcs.ParsingException
+import sbencoding.BencodingParser.ParsingException
 
 import scala.collection.mutable.ArrayBuffer
 import scala.io.Codec

@@ -30,6 +30,14 @@ class CollectionFormatsSpec extends Specification with DefaultBencodingProtocol 
     "convert a BcList of BcInts to an Array[Int]" in {
       util.Arrays.equals(b.convertTo[Array[Int]], array) must beTrue
     }
+
+    "convert Array[Byte] to BcString" in {
+      Array[Byte](0, 1, 0, 0).toBencoding mustEqual BcString(Array[Byte](0, 1, 0, 0))
+    }
+
+    "accept BcString if T of Array is Byte" in {
+      util.Arrays.equals(BcString(Array[Byte](0, 1, 0, 0)).convertTo[Array[Byte]], Array[Byte](0, 1, 0, 0))
+    }
   }
 
   "The mapFormat" should {
