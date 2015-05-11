@@ -5,8 +5,6 @@ name := "sbencoding"
 
 organization := "com.github.zhaoyao"
 
-releaseUseGlobalVersion := true
-
 releasePublishArtifactsAction := PgpKeys.publishSigned.value
 
 scalaVersion := "2.11.6"
